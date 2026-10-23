@@ -1,7 +1,7 @@
 
 import tkinter as tk
 from tkinter import ttk, messagebox
-from database import Database
+from Database import Database
 
 class AppCadastro:
     def __init__(self, root):
@@ -56,19 +56,19 @@ class AppCadastro:
         frame_botoes = tk.Frame(self.root, bg="#f0f0f0")
         frame_botoes.pack(pady=10)
 
-        tk.Button(frame_botoes, text="➕ Cadastrar", width=12,
+        tk.Button(frame_botoes, text=" Cadastrar", width=12,
                   bg="#27ae60", fg="white", font=("Arial", 10, "bold"),
                   command=self.cadastrar).grid(row=0, column=0, padx=5)
 
-        tk.Button(frame_botoes, text="✏️ Atualizar", width=12,
+        tk.Button(frame_botoes, text=" Atualizar", width=12,
                   bg="#f39c12", fg="white", font=("Arial", 10, "bold"),
                   command=self.atualizar).grid(row=0, column=1, padx=5)
 
-        tk.Button(frame_botoes, text="🗑️ Excluir", width=12,
+        tk.Button(frame_botoes, text=" Excluir", width=12,
                   bg="#c0392b", fg="white", font=("Arial", 10, "bold"),
                   command=self.excluir).grid(row=0, column=2, padx=5)
 
-        tk.Button(frame_botoes, text="🧹 Limpar", width=12,
+        tk.Button(frame_botoes, text=" Limpar", width=12,
                   bg="#7f8c8d", fg="white", font=("Arial", 10, "bold"),
                   command=self.limpar_campos).grid(row=0, column=3, padx=5)
 
