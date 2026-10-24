@@ -1,4 +1,6 @@
  import sqlite3
+from sqlite3 import IntegrityError 
+
 
 class Database:
     def __init__(self, db_name="clientes.db"):
@@ -36,7 +38,10 @@ class Database:
             self.conn.commit()
         except sqlite3.IntegrityError as e:
             self.conn.rollback()
-            raise IntegrityError(f"Email já cadastrado ou violação de constraint: {e}")
+            # FIX: era "IntegrityError(...)" (NameError) -> agora "sqlite3.IntegrityError"
+            raise sqlite3.IntegrityError(
+                f"Email já cadastrado ou violação de constraint: {e}"
+            )
         except sqlite3.Error as e:
             self.conn.rollback()
             raise RuntimeError(f"Erro ao inserir cliente: {e}")
@@ -81,7 +86,10 @@ class Database:
                 (email, id_cliente)
             )
             if self.cursor.fetchone():
-                raise IntegrityError("Email já está em uso por outro cliente.")
+                # FIX: era "IntegrityError(...)" (NameError)
+                raise sqlite3.IntegrityError(
+                    "Email já está em uso por outro cliente."
+                )
 
             self.cursor.execute("""
                 UPDATE clientes
@@ -118,7 +126,7 @@ class Database:
     def validar_idade(self, idade):
         """Valida que idade está dentro de uma faixa razoável."""
         if idade is None:
-            return True  # Permite idade nula
+            return True
         if not isinstance(idade, int):
             raise ValueError("Idade deve ser um número inteiro.")
         if idade < 0 or idade > 150:
